@@ -8,7 +8,7 @@ exports.Gadjets_list = async function(req, res) {
         catch(err){
         res.status(500);
         res.send(`{"error": ${err}}`);
-        }
+        } 
     
 };
 // for a specific Gadjet.
