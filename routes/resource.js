@@ -17,4 +17,5 @@ router.put('/Gadjets/:id', Gadjets_controller.Gadjets_update_put);
 router.get('/Gadjets/:id', Gadjets_controller.Gadjets_detail);
 // GET request for list of all Gadjets items.
 router.get('/Gadjets', Gadjets_controller.Gadjets_list);
+
 module.exports = router;
