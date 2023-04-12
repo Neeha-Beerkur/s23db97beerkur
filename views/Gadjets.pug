@@ -3,10 +3,11 @@ extends layout
 block content
     h1= title
     -
-     let results  = [{"Gadjet_Name": "Iphone", "Gadjet_Price": "40,000", "Gadjet_Type": "Mobile",}, {"Gadjet_Name": "Mac", "Gadjet_Price": "25,000", "Gadjet_Type": "Laptop",}, {"Gadjet_Name": "Airpods", "Gadjet_Price": "20,000", "Gadjet_Type": "Bluetooth device",},]
+    //-  let results  = [{"Gadjet_Name": "Iphone", "Gadjet_Price": "40,000", "Gadjet_Type": "Mobile",}, {"Gadjet_Name": "Mac", "Gadjet_Price": "25,000", "Gadjet_Type": "Laptop",}, {"Gadjet_Name": "Airpods", "Gadjet_Price": "20,000", "Gadjet_Type": "Bluetooth device",},]
+    - let result = results
     div(class= "container-fluid")
         div(class = "row")  
-            each item, index in results
+            each item, index in result
                 div(class= "col-sm-2", onclick=`gadjets(${index})`)  Gadjet_Name: #{item.Gadjet_Name}
                 div(class= "col-sm-2", onclick=`gadjets(${index})`)  Gadjet_Price: #{item.Gadjet_Price}
                 div(class= "col-sm-2", onclick=`gadjets(${index})`)  Gadjet_Type: #{item.Gadjet_Type}

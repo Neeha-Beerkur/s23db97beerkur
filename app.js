@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var GadjetsRouter = require('./routes/Gadjets');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var Gadjets= require("./models/Gadjets");
+var resourceRouter = require('./routes/resource');
 var app = express();
 
 // view engine setup
@@ -26,6 +28,18 @@ app.use('/users', usersRouter);
 app.use('/Gadjets', GadjetsRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
+
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -42,4 +56,29 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+ // Delete everything
+ await Gadjets.deleteMany();
+ let instance1 = new
+ Gadjets({Gadjet_Type:"Mobile", Gadjet_Name:'Iphone', Gadjet_Price:40000});
+ let instance2 = new
+ Gadjets({Gadjet_Type:"Laptop", Gadjet_Name:'Mac', Gadjet_Price:25000});
+ let instance3 = new
+ Gadjets({Gadjet_Type:"Bluetooth device", Gadjet_Name:'Airpods', Gadjet_Price:20000});
+ instance1.save().then( () => { console.log('First Object is created'); }).catch( (e) => { console.log('There was an error', e.message); });
+ instance2.save().then( () => { console.log('Second Object is created'); }).catch( (e) => { console.log('There was an error', e.message); });
+ instance3.save().then( () => { console.log('Third Object is created'); }).catch( (e) => { console.log('There was an error', e.message); });
+}
+let reseed = true;
+if (reseed) { recreateDB();}
+
 module.exports = app;
+

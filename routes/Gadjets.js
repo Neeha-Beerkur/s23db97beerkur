@@ -1,9 +1,7 @@
 var express = require('express');
+const Gadjets_controlers= require('../controllers/Gadjets');
 var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('Gadjets', { title: 'Search Results Gadjets' });
-});
+/* GET costumes */
+router.get('/', Gadjets_controlers.Gadjets_view_all_Page );
 
 module.exports = router;
