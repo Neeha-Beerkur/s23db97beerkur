@@ -1,20 +1,23 @@
 extends layout
 block content
   h1= title
-  - let Gadjet_id = toShow._id
-  - let Gadjet_type = toShow.Gadjet_Type
-  - let Gadjet_Price = toShow.Gadjet_Price
-  - let Gadjet_Name = toShow.Gadjet_Name
-  div
-    div.row
-        div(class='GadjetsAttr mr-3') Gadjet ID is:
-        div #{Gadjet_id}
-    div.row
-        div(class='GadjetsAttr mr-3') Gadjet_Name is:
-        div #{Gadjet_Name}
-    div.row
-        div(class='GadjetsAttr mr-3') Gadjet_Type is:
-        div #{Gadjet_type}
-    div.row
-        div(class='GadjetsAttr mr-3') Gadjet_Price is:
-        div #{Gadjet_Price}
+  if (toShow == null)
+    h2 No instance detail found
+  else  
+    - let Gadjet_id = toShow._id
+    - let Gadjet_type = toShow.Gadjet_Type
+    - let Gadjet_Price = toShow.Gadjet_Price
+    - let Gadjet_Name = toShow.Gadjet_Name
+    div
+        div.row
+            div(class='GadjetsAttr mr-3') Gadjet ID is:
+            div #{Gadjet_id}
+        div.row
+            div(class='GadjetsAttr mr-3') Gadjet_Name is:
+            div #{Gadjet_Name}
+        div.row
+            div(class='GadjetsAttr mr-3') Gadjet_Type is:
+            div #{Gadjet_type}
+        div.row
+            div(class='GadjetsAttr mr-3') Gadjet_Price is:
+            div #{Gadjet_Price}

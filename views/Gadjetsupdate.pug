@@ -1,40 +1,43 @@
 extends layout
 block content
   h1= title
-  - let Gadjet_id = toShow._id
-  - let Gadjet_Type = toShow.Gadjet_Type
-  - let Gadjet_Name = toShow.Gadjet_Name
-  - let Gadjet_Price = toShow.Gadjet_Price
-  div.row(class='mb-2')
-    div.mr-1 ID is
-    div #{Gadjet_id}
-  - let actionid = "/resource/Gadjets/" + Gadjet_id
-  form(id='GadjetsForm', action= actionid, method="PUT")
-    
-    div.form-group
-      label.GadjetsAttr(for='Gadjet_Name') Gadjet_Name
-      input#Gadjet_Name(type='text', name='Gadjet_Name', value= Gadjet_Name )
-    div.form-group
-      label.GadjetAttr(for='Gadjet_Price') Gadjet_Price
-      input#Gadjet_Price(type='number', name='Gadjet_Price', value= Gadjet_Price )
-    div.form-group
-      label.GadjetsAttr(for='Gadjet_Type') Gadjet_Type
-      input#Gadjet_Type(type='text', name='Gadjet_Type', value= Gadjet_Type )
-    input(type="submit")
-  script.
-    document.forms['GadjetsForm'].addEventListener('submit', (event) => {
-      event.preventDefault();
-     // TODO do something here to show user that form is being submitted
-      fetch(event.target.action, {
-        method: 'PUT',
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-      }).then((resp) => {
-        return resp.json(); // or resp.text() or whatever the server sends
-      }).then((body) => {
-        alert("Update succeded")
-       // TODO handle body
-      }).catch((error) => {
-       // TODO handle error
-        alert("Update failed " + error )
+  if (toShow == null)
+    h2 No instance to update
+  else
+    - let Gadjet_id = toShow._id
+    - let Gadjet_Type = toShow.Gadjet_Type
+    - let Gadjet_Name = toShow.Gadjet_Name
+    - let Gadjet_Price = toShow.Gadjet_Price
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{Gadjet_id}
+    - let actionid = "/resource/Gadjets/" + Gadjet_id
+    form(id='GadjetsForm', action= actionid, method="PUT")
+      
+      div.form-group
+        label.GadjetsAttr(for='Gadjet_Name') Gadjet_Name
+        input#Gadjet_Name(type='text', name='Gadjet_Name', value= Gadjet_Name )
+      div.form-group
+        label.GadjetAttr(for='Gadjet_Price') Gadjet_Price
+        input#Gadjet_Price(type='number', name='Gadjet_Price', value= Gadjet_Price )
+      div.form-group
+        label.GadjetsAttr(for='Gadjet_Type') Gadjet_Type
+        input#Gadjet_Type(type='text', name='Gadjet_Type', value= Gadjet_Type )
+      input(type="submit")
+    script.
+      document.forms['GadjetsForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeded")
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+          alert("Update failed " + error )
+        });
       });
-    });
