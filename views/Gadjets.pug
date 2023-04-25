@@ -1,19 +1,23 @@
 extends layout
 
 block content
+
+  - let Gadjets = results
   h1= title
-  - let items = results;
+  - let create = `dispatch(\"/Gadjets/create\")`
+  button.btn( class="btn-info", onclick= create) Add new Gadjet
   div(class="container-fluid")
-    div(class="row")
-      each item,index in items
-        - let destination = `dispatch(\"/Gadsjets/update?id=${item._id}\")`
-        div(class="col-sm-2" class="m-1")
-          p #{item.Gadjet_Type}
-          p #{item.Gadjet_Name}
-          p #{item.Gadjet_Price}
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
+  div(class="row m-1")
+    each Gadjet in Gadjets
+      - let destination = `dispatch(\"/Gadjets/update?id=${Gadjet._id}\")`
+      - let detail = `dispatch(\"/Gadjets/detail/?id=${Gadjet._id}")`
+      - let deleteGadjet = `dispatch(\"/Gadjets/delete/?id=${Gadjet._id}")`      
+      div(class="row-sm-2", class="m-1") Gadjet #{Gadjets.Gadjet_type} (#{Gadjets.Gadjet_Name}) is #{Gadjets.Gadjet_Price}
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
+        button.btn( class="btn-success", onclick= detail) Details
+        button.btn( class="btn-dark", onclick= deleteGadjet) Delete
+
   script.
     function dispatch(path){
-      console.log(path);
-      window.location.href=path;
+      window.location.href=path
     }
